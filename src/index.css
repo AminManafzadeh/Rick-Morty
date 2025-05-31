@@ -24,3 +24,21 @@ button {
 .text-field {
   @apply py-3 px-4 rounded-lg text-slate-100 bg-slate-500 text-lg;
 }
+.btn {
+  @apply py-3 px-4 rounded-2xl;
+}
+.btn-primary {
+  @apply text-slate-100 bg-slate-500 font-bold;
+}
+.btn-secondary {
+  @apply border border-solid border-slate-100 text-slate-100 font-bold;
+}
+.badge {
+  @apply whitespace-nowrap py-1 px-4 rounded-2xl text-sm font-bold;
+}
+.badge-secondary {
+  @apply bg-slate-600;
+}
+.icon {
+  @apply w-6 h-6;
+}
