@@ -1,9 +1,9 @@
 import { IoEyeOutline } from "react-icons/io5";
 
-function CharacterList({ allCharacters }) {
+function CharacterList({ characters }) {
   return (
     <div className="w-[40%]">
-      {allCharacters?.map((item) => {
+      {characters?.map((item) => {
         return <Character key={item.id} item={item} />;
       })}
     </div>
