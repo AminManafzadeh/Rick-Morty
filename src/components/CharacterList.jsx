@@ -1,11 +1,16 @@
 import { IoEyeOutline } from "react-icons/io5";
+import Loading from "./Loading";
 
-function CharacterList({ characters }) {
+function CharacterList({ characters, isLoading }) {
   return (
     <div className="w-[40%]">
-      {characters?.map((item) => {
-        return <Character key={item.id} item={item} />;
-      })}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        characters?.map((item) => {
+          return <Character key={item.id} item={item} />;
+        })
+      )}
     </div>
   );
 }

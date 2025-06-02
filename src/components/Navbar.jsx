@@ -1,11 +1,17 @@
 import { CiHeart } from "react-icons/ci";
 
-function Navbar({ characters }) {
+function Navbar({ characters, query, setQuery }) {
   const numOfCharacters = characters?.length;
   return (
     <nav className="flex items-center justify-between bg-slate-700 p-4 rounded-2xl mb-4">
       <div className="text-slate-300 font-bold">LOGO ⭐</div>
-      <input className="text-field" type="text" placeholder="search ....." />
+      <input
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        className="text-field"
+        type="text"
+        placeholder="search ....."
+      />
       <div className="text-slate-400">
         Found <strong>{numOfCharacters}</strong> Characters
       </div>
