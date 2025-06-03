@@ -1,14 +1,27 @@
 import { IoEyeOutline } from "react-icons/io5";
+import { IoEyeOffOutline } from "react-icons/io5";
 import Loading from "./Loading";
 
-function CharacterList({ characters, isLoading }) {
+function CharacterList({
+  characters,
+  isLoading,
+  onSelectCharacterId,
+  characterId,
+}) {
   return (
     <div className="w-[40%]">
       {isLoading ? (
         <Loading />
       ) : (
         characters?.map((item) => {
-          return <Character key={item.id} item={item} />;
+          return (
+            <Character
+              key={item.id}
+              item={item}
+              onSelectCharacterId={onSelectCharacterId}
+              characterId={characterId}
+            />
+          );
         })
       )}
     </div>
@@ -17,7 +30,7 @@ function CharacterList({ characters, isLoading }) {
 
 export default CharacterList;
 
-function Character({ item }) {
+function Character({ item, onSelectCharacterId, characterId }) {
   return (
     <div className="grid gap-x-4 mb-4 grid-cols-[4rem_1fr_2rem] grid-rows-2 bg-slate-800 rounded-2xl p-2 cursor-pointer transition-all 0.2s ease-out hover:bg-slate-700">
       <img
@@ -40,8 +53,15 @@ function Character({ item }) {
           <span> - {item.species}</span>
         </div>
       </div>
-      <button className="col-start-3 col-end-4 row-start-1 row-end-4 text-rose-500">
-        <IoEyeOutline className="w-5 h-5" />
+      <button
+        onClick={() => onSelectCharacterId(item.id)}
+        className="col-start-3 col-end-4 row-start-1 row-end-4 text-rose-500"
+      >
+        {characterId === item.id ? (
+          <IoEyeOffOutline className="w-5 h-5" />
+        ) : (
+          <IoEyeOutline className="w-5 h-5" />
+        )}
       </button>
     </div>
   );

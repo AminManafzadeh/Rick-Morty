@@ -1,7 +1,9 @@
 import { CiHeart } from "react-icons/ci";
 
-function Navbar({ characters, query, setQuery }) {
+function Navbar({ characters, query, setQuery, favourites }) {
   const numOfCharacters = characters?.length;
+  const numOfFavourites = favourites?.length;
+
   return (
     <nav className="flex items-center justify-between bg-slate-700 p-4 rounded-2xl mb-4">
       <div className="text-slate-300 font-bold">LOGO ⭐</div>
@@ -18,7 +20,7 @@ function Navbar({ characters, query, setQuery }) {
       <button className="relative text-rose-500">
         <CiHeart className="w-8 h-8" />
         <span className="absolute top-0 -right-2 text-sm bg-rose-500 text-white rounded-full flex items-center justify-center py-[1px] px-[4px]">
-          4
+          {numOfFavourites}
         </span>
       </button>
     </nav>

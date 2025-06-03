@@ -11,6 +11,8 @@ function App() {
   const [characters, setCharacters] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
+  const [characterId, setCharacterId] = useState(null);
+  const [favourites, setFavourites] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -20,7 +22,7 @@ function App() {
           `https://rickandmortyapi.com/api/character?name=${query}`
         );
         console.log(res?.data?.results);
-        setCharacters(res?.data?.results);
+        setCharacters(res?.data?.results.slice(0, 5));
       } catch (error) {
         setCharacters([]);
         toast.error(error?.response?.data?.error);
@@ -32,13 +34,39 @@ function App() {
     fetchData();
   }, [query]);
 
+  const handleSelectCharacterId = (id) => {
+    setCharacterId(characterId === id ? null : id);
+  };
+
+  const handleAddFavourites = (char) => {
+    setFavourites([...favourites, char]);
+  };
+
+  const isAddedToFavourite = favourites
+    ?.map((fav) => fav.id)
+    .includes(characterId);
+
   return (
     <div className="container max-w-[1080px] mx-auto p-4">
       <Toaster />
-      <Navbar characters={characters} query={query} setQuery={setQuery} />
+      <Navbar
+        characters={characters}
+        query={query}
+        setQuery={setQuery}
+        favourites={favourites}
+      />
       <div className="flex justify-between w-full gap-8">
-        <CharacterList characters={characters} isLoading={isLoading} />
-        <CharacterDetail />
+        <CharacterList
+          characters={characters}
+          isLoading={isLoading}
+          onSelectCharacterId={handleSelectCharacterId}
+          characterId={characterId}
+        />
+        <CharacterDetail
+          characterId={characterId}
+          onAddToFavourites={handleAddFavourites}
+          isAddedToFavourite={isAddedToFavourite}
+        />
       </div>
     </div>
   );
