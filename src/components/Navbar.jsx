@@ -1,6 +1,6 @@
 import { CiHeart } from "react-icons/ci";
 
-function Navbar({ characters, query, setQuery, favourites }) {
+function Navbar({ characters, query, setQuery, favourites, setOpen, open }) {
   const numOfCharacters = characters?.length;
   const numOfFavourites = favourites?.length;
 
@@ -17,7 +17,7 @@ function Navbar({ characters, query, setQuery, favourites }) {
       <div className="text-slate-400">
         Found <strong>{numOfCharacters}</strong> Characters
       </div>
-      <button className="relative text-rose-500">
+      <button onClick={() => setOpen(!open)} className="relative text-rose-500">
         <CiHeart className="w-8 h-8" />
         <span className="absolute top-0 -right-2 text-sm bg-rose-500 text-white rounded-full flex items-center justify-center py-[1px] px-[4px]">
           {numOfFavourites}

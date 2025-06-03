@@ -24,6 +24,9 @@ module.exports = {
           600: "#22c55e",
         },
       },
+      boxShadow: {
+        box_shadow: "1px 1px 50px #475569",
+      },
     },
   },
   plugins: [],

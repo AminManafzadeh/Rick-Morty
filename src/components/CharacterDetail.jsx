@@ -102,20 +102,40 @@ function CharacterDetail({
 export default CharacterDetail;
 
 function Episodes({ episodes }) {
+  const [sortBy, setSortBy] = useState(true);
+
+  let sortedEpisodes;
+  if (sortBy) {
+    sortedEpisodes = [...episodes].sort(
+      (a, b) => new Date(a.created) - new Date(b.created)
+    );
+  } else {
+    sortedEpisodes = [...episodes].sort(
+      (a, b) => new Date(b.created) - new Date(a.created)
+    );
+  }
+
   return (
     <div className="bg-slate-800 rounded-2xl p-4">
       <div className="flex items-center justify-between">
         <h2 className="text-slate-400 mb-2 font-bold text-xl">
           List of Episodes :
         </h2>
-        <button>
+        <button
+          onClick={() => setSortBy(!sortBy)}
+          className={
+            sortBy === true
+              ? "rotate-0 transition-all 0.3s ease-out"
+              : "rotate-180 transition-all 0.3s ease-out "
+          }
+        >
           <IoArrowUpCircleOutline className="icon transition-all 0.3s ease-in-out text-slate-300 flex items-center justify-center" />
         </button>
       </div>
 
       <div>
         <ul>
-          {episodes?.map((item, index) => {
+          {sortedEpisodes?.map((item, index) => {
             return (
               <li
                 className="flex items-center justify-between text-slate-200 py-2 px-0"

@@ -30,7 +30,7 @@ function CharacterList({
 
 export default CharacterList;
 
-function Character({ item, onSelectCharacterId, characterId }) {
+export function Character({ item, onSelectCharacterId, characterId }) {
   return (
     <div className="grid gap-x-4 mb-4 grid-cols-[4rem_1fr_2rem] grid-rows-2 bg-slate-800 rounded-2xl p-2 cursor-pointer transition-all 0.2s ease-out hover:bg-slate-700">
       <img
