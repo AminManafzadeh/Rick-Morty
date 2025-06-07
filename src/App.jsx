@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import CharacterDetail from "./components/CharacterDetail";
-import CharacterList, { Character } from "./components/CharacterList";
+import CharacterList from "./components/CharacterList";
 import Navbar from "./components/Navbar";
-import Loading from "./components/Loading";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
-import Modal from "./components/Modal";
 
 function App() {
   const [characters, setCharacters] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [characterId, setCharacterId] = useState(null);
-  const [favourites, setFavourites] = useState([]);
-  const [open, setOpen] = useState(false);
+  const [favourites, setFavourites] = useState(
+    () => JSON.parse(localStorage.getItem("FAVOURITES")) || []
+  );
 
   useEffect(() => {
     const controler = new AbortController();
@@ -47,12 +46,20 @@ function App() {
     };
   }, [query]);
 
+  useEffect(() => {
+    localStorage.setItem("FAVOURITES", JSON.stringify(favourites));
+  }, [favourites]);
+
   const handleSelectCharacterId = (id) => {
     setCharacterId(characterId === id ? null : id);
   };
 
   const handleAddFavourites = (char) => {
     setFavourites([...favourites, char]);
+  };
+
+  const handleDeleteFavourite = (id) => {
+    setFavourites(favourites?.filter((fav) => fav.id !== id));
   };
 
   const isAddedToFavourite = favourites
@@ -62,18 +69,13 @@ function App() {
   return (
     <div className="container max-w-[1080px] mx-auto p-4">
       <Toaster />
-      <Modal open={open} setOpen={setOpen} title="modal">
-        {favourites?.map((f) => {
-          return <Character key={f.id} />;
-        })}
-      </Modal>
+
       <Navbar
         characters={characters}
         query={query}
         setQuery={setQuery}
         favourites={favourites}
-        setOpen={setOpen}
-        open={open}
+        onDeleteFavourite={handleDeleteFavourite}
       />
       <div className="flex justify-between w-full gap-8">
         <CharacterList

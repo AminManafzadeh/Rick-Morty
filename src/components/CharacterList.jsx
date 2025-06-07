@@ -15,12 +15,18 @@ function CharacterList({
       ) : (
         characters?.map((item) => {
           return (
-            <Character
-              key={item.id}
-              item={item}
-              onSelectCharacterId={onSelectCharacterId}
-              characterId={characterId}
-            />
+            <Character key={item.id} item={item}>
+              <button
+                onClick={() => onSelectCharacterId(item.id)}
+                className="col-start-3 col-end-4 row-start-1 row-end-4 text-rose-500"
+              >
+                {characterId === item.id ? (
+                  <IoEyeOffOutline className="w-5 h-5" />
+                ) : (
+                  <IoEyeOutline className="w-5 h-5" />
+                )}
+              </button>
+            </Character>
           );
         })
       )}
@@ -30,7 +36,7 @@ function CharacterList({
 
 export default CharacterList;
 
-export function Character({ item, onSelectCharacterId, characterId }) {
+export function Character({ item, children }) {
   return (
     <div className="grid gap-x-4 mb-4 grid-cols-[4rem_1fr_2rem] grid-rows-2 bg-slate-800 rounded-2xl p-2 cursor-pointer transition-all 0.2s ease-out hover:bg-slate-700">
       <img
@@ -53,16 +59,7 @@ export function Character({ item, onSelectCharacterId, characterId }) {
           <span> - {item.species}</span>
         </div>
       </div>
-      <button
-        onClick={() => onSelectCharacterId(item.id)}
-        className="col-start-3 col-end-4 row-start-1 row-end-4 text-rose-500"
-      >
-        {characterId === item.id ? (
-          <IoEyeOffOutline className="w-5 h-5" />
-        ) : (
-          <IoEyeOutline className="w-5 h-5" />
-        )}
-      </button>
+      {children}
     </div>
   );
 }
